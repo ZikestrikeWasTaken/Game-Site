@@ -1,0 +1,14 @@
+/*
+ * Cloudflare Pages — drag-and-drop public/ folder only (no games here)
+ */
+/styles.css
+  Cache-Control: public, max-age=3600
+
+/app.js
+  Cache-Control: public, max-age=3600
+
+/index.html
+  Cache-Control: no-cache
+
+/games/*
+  https://backend.zikestrike.com/games/:splat  302
