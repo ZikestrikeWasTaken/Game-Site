@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZikeStrike Quiz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="container" style="text-align:center;padding:4rem 1rem;color:#94a3b8;">
+      Loading…
+    </div>
+  </div>
+  <script>
+    (function () {
+      const API = 'https://backend.zikestrike.com';
+
+      async function loadPage() {
+        const boot = await fetch(API + '/api/bootstrap', { credentials: 'include' });
+        const bootData = await boot.json();
+
+        if (bootData.isSecret) {
+          const page = await fetch(API + '/api/page', { credentials: 'include' });
+          if (page.ok) {
+            const html = await page.text();
+            document.open();
+            document.write(html);
+            document.close();
+            return;
+          }
+        }
+
+        window.ZIKESTRIKE_MODE = 'normal';
+        window.ZIKESTRIKE_API = API;
+        const s = document.createElement('script');
+        s.src = 'app.js';
+        document.body.appendChild(s);
+      }
+
+      loadPage().catch(function () {
+        document.getElementById('app').innerHTML =
+          '<div class="container" style="text-align:center;padding:4rem 1rem;">' +
+          '<p>Could not reach backend. Deploy the Worker to backend.zikestrike.com.</p></div>';
+      });
+    })();
+  </script>
+</body>
+</html>
