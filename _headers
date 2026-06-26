@@ -1,6 +1,3 @@
-/*
- * Cloudflare Pages — drag-and-drop public/ folder only (no games here)
- */
 /styles.css
   Cache-Control: public, max-age=3600
 
